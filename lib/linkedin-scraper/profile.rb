@@ -4,7 +4,7 @@ module Linkedin
 
     USER_AGENTS = ['Windows IE 6', 'Windows IE 7', 'Windows Mozilla', 'Mac Safari', 'Mac FireFox', 'Mac Mozilla', 'Linux Mozilla', 'Linux Firefox', 'Linux Konqueror']
 
-    ATTRIBUTES = %w(name first_name last_name title location country industry summary picture linkedin_url education groups websites languages skills certifications organizations past_companies current_companies recommended_visitors)
+    ATTRIBUTES = %w(name first_name last_name title location country industry summary picture linkedin_url education groups websites languages skills certifications organizations past_companies current_companies recommended_visitors phone_no)
 
     attr_reader :page, :linkedin_url
 
@@ -23,6 +23,10 @@ module Linkedin
 
     def name
       "#{first_name} #{last_name}"
+    end
+
+    def phone_no
+      @phone_no ||= (@page.at('#phone-view/ul/li').text.strip if @page.at('#phone-view'))
     end
 
     def first_name
